@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom - Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #ffe6f2, #f3e8ff, #ffd6ec);
+  background-size:200% 200%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.container{
+  text-align:center;
+}
+
+.title{
+  font-family:'Playfair Display', serif;
+  font-size:50px;
+  color:#7a4e9f;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  color:#a066b5;
+  margin-bottom:40px;
+  font-size:18px;
+}
+
+.card-wrapper{
+  display:flex;
+  gap:40px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.card{
+  width:260px;
+  padding:40px 20px;
+  border-radius:25px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.3);
+  box-shadow: 0 8px 30px rgba(122,78,159,0.2);
+  transition: all 0.4s ease;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(122,78,159,0.3);
+}
+
+.icon{
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+.card h3{
+  color:#7a4e9f;
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#8e5fa9;
+  font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="title">Bloom</div>
+  <div class="subtitle">Choose your role to continue</div>
+
+  <div class="card-wrapper">
+
+    <div class="card" onclick="location.href='patient-signup.html'">
+      <div class="icon">🌸</div>
+      <h3>Login as Patient</h3>
+      <p>Book appointments, track health & receive care</p>
+    </div>
+
+    <div class="card" onclick="location.href='hospital-signup.html'">
+      <div class="icon">🏥</div>
+      <h3>Login as hospital</h3>
+      <p>Manage patients, appointments & consultations</p>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

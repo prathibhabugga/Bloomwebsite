@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom - Pregnant Dashboard</title>
+<style>
+body {margin:0;font-family:Arial,sans-serif;background:#f0e6ff;}
+header {display:flex;justify-content:space-between;align-items:center;padding:15px;background:#7e57c2;color:white;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+header .logo {font-size:22px;font-weight:bold;}
+header .icons {font-size:20px;}
+.hero {text-align:center;padding:30px;background:#d1c4e9;margin:10px 15px;border-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.hero h1 {color:#4a148c;}
+.hero p {color:#4a148c;font-size:16px;}
+.features {display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px;padding:15px;margin:15px;}
+.card {background:white;padding:20px;text-align:center;border-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,.05);cursor:pointer;transition:0.3s;position:relative;}
+.card:hover {box-shadow:0 6px 18px rgba(0,0,0,.15);}
+.card .icon {font-size:50px;margin-bottom:10px;}
+.subfeatures {display:none;position:absolute;top:90px;left:50%;transform:translateX(-50%);background:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15);padding:10px;width:220px;z-index:100;}
+.subfeatures a {display:flex;align-items:center;padding:6px;cursor:pointer;color:#7e57c2;text-decoration:none;font-size:16px;}
+.subfeatures a span {margin-right:10px;}
+.subfeatures a:hover {background:#d1c4e9;border-radius:8px;}
+.week, .documents {background:white;margin:15px;padding:18px;border-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
+.week progress {width:100%;height:18px;border-radius:10px;}
+.sos-section {text-align:center;margin:25px;}
+.sos-btn {background:#ff1744;color:white;border:none;padding:20px 35px;font-size:18px;border-radius:50px;cursor:pointer;transition:0.3s;}
+.sos-btn:hover {background:#d50000;}
+#content-area {background:white;margin:15px;padding:18px;border-radius:15px;min-height:250px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
+.chatbot {background:white;margin:15px;padding:15px;border-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,.05);}
+.chat-messages {height:200px;overflow-y:auto;border:1px solid #ccc;padding:10px;border-radius:10px;margin-bottom:10px;background:#f9f9f9;}
+.chat-messages p {margin:5px 0;}
+.chat-messages .user {color:#4a148c;font-weight:bold;}
+.chat-messages .bot {color:#7e57c2;}
+.chat-input {display:flex;}
+.chat-input input {flex:1;padding:10px;border-radius:10px;border:1px solid #ccc;}
+.chat-input button {padding:10px 20px;margin-left:10px;border:none;border-radius:10px;background:#7e57c2;color:white;cursor:pointer;}
+.chat-input button:hover {background:#4a148c;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🌸 Bloom</div>
+  <div class="icons">🔔 👤</div>
+</header>
+
+<section class="hero">
+  <h1>Healthy Mother, Safe Future 💜</h1>
+  <p>Supporting women through every stage of pregnancy.</p>
+</section>
+
+<section class="features">
+
+  <div class="card" onclick="toggleSub('dietSub')">
+    <div class="icon">🥦</div>
+    <h4>Diet & Nutrition</h4>
+    <div class="subfeatures" id="dietSub">
+      <a onclick="showContent('weeklyDiet')"><span>🥗</span> Weekly Diet</a>
+      <a onclick="showContent('vitamins')"><span>💊</span> Vitamins</a>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleSub('yogaSub')">
+    <div class="icon">🧘</div>
+    <h4>Exercise & Yoga</h4>
+    <div class="subfeatures" id="yogaSub">
+      <a onclick="showContent('prenatalYoga')"><span>🧘‍♀️</span> Prenatal Yoga</a>
+      <a onclick="showContent('walking')"><span>🚶‍♀️</span> Walking Tracker</a>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleSub('medicineSub')">
+    <div class="icon">💊</div>
+    <h4>Medicine Reminder</h4>
+    <div class="subfeatures" id="medicineSub">
+      <a onclick="showContent('todayMeds')"><span>📅</span> Today's Medicines</a>
+      <a onclick="showContent('scheduleMeds')"><span>⏰</span> Schedule Medicines</a>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleSub('vaccineSub')">
+    <div class="icon">💉</div>
+    <h4>Vaccination Reminder</h4>
+    <div class="subfeatures" id="vaccineSub">
+      <a onclick="showContent('upcomingVaccine')"><span>📅</span> Upcoming Vaccines</a>
+      <a onclick="showContent('completedVaccine')"><span>✅</span> Completed Vaccines</a>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleSub('doctorSub')">
+    <div class="icon">📅</div>
+    <h4>Doctor Appointment</h4>
+    <div class="subfeatures" id="doctorSub">
+      <a onclick="showContent('bookAppointment')"><span>📝</span> Book Appointment</a>
+      <a onclick="showContent('viewAppointments')"><span>📖</span> View Appointments</a>
+    </div>
+  </div>
+
+</section>
+
+<section class="week">
+  <h3>Hello Akhila 👋</h3>
+  <p>Week 24 Pregnancy</p>
+  <progress value="24" max="40"></progress>
+</section>
+
+<section class="documents">
+  <h3>Upload Medical Documents</h3>
+  <input type="file">
+</section>
+
+<section class="sos-section">
+  <button class="sos-btn" onclick="sendSOS()">🚨 EMERGENCY SOS</button>
+</section>
+
+<section id="content-area">
+  <h3>Welcome! Select a feature above to see details.</h3>
+</section>
+
+<!-- Chatbot Section -->
+<section class="chatbot">
+  <h3>🤖 Chat with Bloom AI</h3>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input">
+    <input type="text" id="chat-input" placeholder="Ask me anything...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</section>
+
+<script>
+function toggleSub(id){
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+
+function showContent(feature){
+  const area=document.getElementById("content-area");
+  let content="";
+  switch(feature){
+    case 'weeklyDiet': content="<h3>Weekly Diet Plan</h3><p>Breakfast: Oats & Fruits<br>Lunch: Brown Rice + Veggies<br>Dinner: Soup & Chapati</p>"; break;
+    case 'vitamins': content="<h3>Vitamins & Minerals</h3><p>Iron, Calcium, Folic Acid recommended.</p>"; break;
+    case 'prenatalYoga': content="<h3>Prenatal Yoga</h3><p>Practice 15 mins daily.</p>"; break;
+    case 'walking': content="<h3>Walking Tracker</h3><p>Steps today: 4000 / Goal: 6000</p>"; break;
+    case 'todayMeds': content="<h3>Today's Medicines</h3><p>Vitamin D, Folic Acid</p>"; break;
+    case 'scheduleMeds': content="<h3>Medicine Schedule</h3><p>Set reminders for all medicines.</p>"; break;
+    case 'upcomingVaccine': content="<h3>Upcoming Vaccines</h3><p>Tdap, Influenza due next week.</p>"; break;
+    case 'completedVaccine': content="<h3>Completed Vaccines</h3><p>MMR, Hepatitis B completed.</p>"; break;
+    case 'bookAppointment': content="<h3>Book Appointment</h3><p>Select a doctor and schedule your visit.</p>"; break;
+    case 'viewAppointments': content="<h3>View Appointments</h3><p>Upcoming and past appointments.</p>"; break;
+    default: content="<h3>Welcome!</h3><p>Select a sub-feature above.</p>";
+  }
+  area.innerHTML=content;
+}
+
+function sendSOS(){
+  const patientName="Akhila";
+  const pregnancyWeek="24";
+
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      const lat=pos.coords.latitude.toFixed(4);
+      const lon=pos.coords.longitude.toFixed(4);
+
+      document.getElementById("content-area").innerHTML=
+        `<h3>🚨 SOS Alert Sent!</h3>
+         <p><strong>Patient:</strong> ${patientName}</p>
+         <p><strong>Week:</strong> ${pregnancyWeek}</p>
+         <p>Medical records have been sent to the doctor successfully.</p>
+         <p><strong>Live Location:</strong> Lat ${lat}, Lon ${lon}</p>`;
+
+      alert("🚑 SOS sent! Medical records and live location sent to doctor successfully.");
+
+      // Optional: send data to backend API for doctor notification
+    }, function(){
+      alert("Enable location services to send live location!");
+    });
+  } else {
+    alert("Geolocation not supported by this browser.");
+  }
+}
+
+// Simple chatbot AI function
+function sendMessage(){
+  const input=document.getElementById("chat-input").value.trim();
+  if(input==="") return;
+  
+  const chatBox=document.getElementById("chat-messages");
+  
+  // Display user message
+  chatBox.innerHTML+=`<p class="user">You: ${input}</p>`;
+  
+  // Generate a simple AI response
+  let response="Sorry, I didn't understand that.";
+  const msg=input.toLowerCase();
+  if(msg.includes("diet")) response="You can check your weekly diet plan under 'Diet & Nutrition'.";
+  else if(msg.includes("exercise") || msg.includes("yoga")) response="Prenatal yoga and walking are great. Check 'Exercise & Yoga'.";
+  else if(msg.includes("medicine")) response="Your medicine schedule is available under 'Medicine Reminder'.";
+  else if(msg.includes("vaccine")) response="You can view upcoming and completed vaccines in 'Vaccination Reminder'.";
+  else if(msg.includes("appointment") || msg.includes("doctor")) response="Book or view your doctor appointments under 'Doctor Appointment'.";
+  else if(msg.includes("sos") || msg.includes("emergency")) response="Press the red 'EMERGENCY SOS' button to notify your doctor.";
+  else response="Bloom AI is here to help! You can ask about diet, yoga, medicines, vaccines, appointments, or emergency SOS.";
+  
+  chatBox.innerHTML+=`<p class="bot">Bloom AI: ${response}</p>`;
+  chatBox.scrollTop=chatBox.scrollHeight;
+  document.getElementById("chat-input").value="";
+}
+</script>
+
+</body>
+</html>

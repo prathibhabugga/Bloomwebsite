@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  overflow-x:hidden;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  /* Soft Pink + Lavender Gradient */
+  background: linear-gradient(135deg, #ffe6f2, #f3e8ff, #ffd6ec);
+}
+
+/* Hero Section */
+.hero{
+  text-align:center;
+}
+
+/* Main Heading */
+.hero h1{
+  font-family:'Playfair Display', serif;
+  font-size:95px;
+  letter-spacing:6px;
+  color:#7a4e9f;
+
+  transform:translateX(-120px);
+  opacity:0;
+  animation: slideLeft 2.5s ease forwards;
+}
+
+/* Quote */
+.hero p{
+  font-size:20px;
+  margin-top:15px;
+  color:#a066b5;
+
+  transform:translateX(120px);
+  opacity:0;
+  animation: slideRight 2.5s ease forwards 0.8s;
+}
+
+/* Animations */
+@keyframes slideLeft{
+  to{
+    transform:translateX(0);
+    opacity:1;
+  }
+}
+
+@keyframes slideRight{
+  to{
+    transform:translateX(0);
+    opacity:1;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <h1>Bloom</h1>
+  <p>"Because every life begins with care"</p>
+</section>
+<script>
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 3500);
+</script>
+</body>
+</html>

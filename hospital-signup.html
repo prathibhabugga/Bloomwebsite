@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom - Hospital Signup</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+/* Background */
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#ffe6f2,#f3e8ff,#ffd6ec);
+  overflow:hidden;
+  position:relative;
+}
+
+/* Floating glows */
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(140px);
+  z-index:-1;
+  animation:float 6s ease-in-out infinite alternate;
+}
+
+.glow1{
+  width:400px;
+  height:400px;
+  background:#e6ccff;
+  top:-120px;
+  right:-120px;
+}
+
+.glow2{
+  width:350px;
+  height:350px;
+  background:#ffd6ec;
+  bottom:-90px;
+  left:-100px;
+}
+
+@keyframes float{
+  0%{transform:translateY(0px) translateX(0px);}
+  50%{transform:translateY(15px) translateX(10px);}
+  100%{transform:translateY(0px) translateX(0px);}
+}
+
+/* Center container */
+.center-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  animation:fadeSlide 1.2s ease forwards;
+  animation-delay:0.2s;
+}
+
+/* Quote */
+.quote{
+  font-family:'Playfair Display', serif;
+  font-size:30px;
+  font-weight:700;
+  color:#7a4e9f;
+  text-align:center;
+  margin-bottom:35px;
+  position:relative;
+  opacity:0;
+  animation:fadeSlide 1s forwards;
+}
+
+.quote span.heart{
+  color:#a855f7;
+  margin-left:8px;
+}
+
+/* Form Card */
+.container{
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(25px);
+  border-radius:35px;
+  padding:50px 40px;
+  box-shadow: 0 20px 60px rgba(122,78,159,0.25);
+  width:420px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:cardSlide 1s ease forwards;
+  opacity:0;
+}
+
+/* Form Inputs */
+.form-group{
+  width:100%;
+  margin-bottom:22px;
+  position:relative;
+}
+
+.form-group label{
+  font-size:14px;
+  color:#7a4e9f;
+  font-weight:500;
+  margin-bottom:6px;
+  display:block;
+}
+
+.form-group input, .form-group select{
+  width:100%;
+  padding:14px 20px;
+  border-radius:18px;
+  border:1px solid #d8b7ff;
+  outline:none;
+  font-size:14px;
+  background:rgba(255,255,255,0.65);
+  transition:0.4s;
+}
+
+.form-group input:focus, .form-group select:focus{
+  border:2px solid #a855f7;
+  box-shadow:0 8px 20px rgba(122,78,159,0.3);
+  background: rgba(255,255,255,0.8);
+}
+
+/* Checkbox */
+.checkbox-group{
+  display:flex;
+  align-items:center;
+  font-size:14px;
+  margin-bottom:25px;
+  color:#7a4e9f;
+}
+
+.checkbox-group input{
+  margin-right:10px;
+  transform:scale(1.2);
+  accent-color:#a855f7;
+}
+
+/* OTP Button */
+.otp-btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:20px;
+  background: linear-gradient(135deg,#a855f7,#7a4e9f);
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.4s;
+}
+
+.otp-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 12px 35px rgba(122,78,159,0.4);
+}
+
+/* Animations */
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(-25px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes cardSlide{
+  from{opacity:0; transform:translateY(50px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<div class="center-container">
+  <div class="quote">
+    "Every hospital is a haven of care." <span class="heart">💜</span>
+  </div>
+
+  <div class="container">
+    <form id="hospitalForm">
+      <div class="form-group">
+        <label>Hospital Name</label>
+        <input type="text" placeholder="Enter hospital name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Hospital Type</label>
+        <select required>
+          <option value="">--Select Hospital Type--</option>
+          <option value="maternity">Maternity Hospital</option>
+          <option value="general">General Hospital</option>
+          <option value="clinic">Clinic</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Registration / License ID</label>
+        <input type="text" placeholder="Enter registration/license ID" required>
+      </div>
+
+      <div class="form-group">
+        <label>Hospital Contact Number</label>
+        <input type="tel" id="mobile" placeholder="Enter contact number" required>
+      </div>
+
+      <div class="form-group">
+        <label>Alternate Contact / WhatsApp Number</label>
+        <input type="tel" id="whatsapp" placeholder="Enter WhatsApp number">
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="sameNumber">
+        <label for="sameNumber">Same as Mobile Number</label>
+      </div>
+
+      <button type="button" class="otp-btn" onclick="sendOtp()">Get OTP</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const mobileInput = document.getElementById('mobile');
+const whatsappInput = document.getElementById('whatsapp');
+const checkbox = document.getElementById('sameNumber');
+
+checkbox.addEventListener('change', function(){
+  if(this.checked){
+    whatsappInput.value = mobileInput.value;
+    whatsappInput.readOnly = true;
+  } else {
+    whatsappInput.readOnly = false;
+    whatsappInput.value = '';
+  }
+});
+
+mobileInput.addEventListener('input', function(){
+  if(checkbox.checked){
+    whatsappInput.value = mobileInput.value;
+  }
+});
+
+function sendOtp(){
+  // Redirect to hospital OTP verification page
+  window.location.href="hospital_otp.html";
+}
+</script>
+
+</body>
+</html>

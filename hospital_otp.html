@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom - OTP Verification</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#ffe6f2,#f3e8ff,#ffd6ec);
+  overflow:hidden;
+  position:relative;
+}
+
+/* Floating glows */
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(140px);
+  z-index:-1;
+  animation:float 6s ease-in-out infinite alternate;
+}
+
+.glow1{
+  width:400px;
+  height:400px;
+  background:#e6ccff;
+  top:-120px;
+  right:-120px;
+}
+
+.glow2{
+  width:350px;
+  height:350px;
+  background:#ffd6ec;
+  bottom:-90px;
+  left:-100px;
+}
+
+@keyframes float{
+  0%{transform:translateY(0px) translateX(0px);}
+  50%{transform:translateY(15px) translateX(10px);}
+  100%{transform:translateY(0px) translateX(0px);}
+}
+
+/* Container */
+.container{
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(25px);
+  border-radius:35px;
+  padding:50px 40px;
+  box-shadow: 0 20px 60px rgba(122,78,159,0.25);
+  width:400px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:fadeSlide 1s ease forwards;
+}
+
+/* Quote */
+.quote{
+  font-family:'Playfair Display', serif;
+  font-size:28px;
+  font-weight:700;
+  color:#7a4e9f;
+  text-align:center;
+  margin-bottom:35px;
+  position:relative;
+}
+
+.quote span.heart{
+  color:#a855f7;
+  margin-left:8px;
+}
+
+/* OTP Boxes */
+.otp-container{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:35px;
+  width:100%;
+}
+
+.otp-container input{
+  width:50px;
+  height:60px;
+  text-align:center;
+  font-size:24px;
+  font-weight:600;
+  border-radius:15px;
+  border:1px solid #d8b7ff;
+  outline:none;
+  background: rgba(255,255,255,0.65);
+  transition:0.3s;
+}
+
+.otp-container input:focus{
+  border:2px solid #a855f7;
+  box-shadow:0 6px 20px rgba(122,78,159,0.3);
+  background: rgba(255,255,255,0.8);
+}
+
+/* Verify Button */
+.verify-btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:20px;
+  background: linear-gradient(135deg,#a855f7,#7a4e9f);
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.4s;
+}
+
+.verify-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 12px 35px rgba(122,78,159,0.4);
+}
+
+/* Animations */
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(25px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<div class="container">
+  <div class="quote">
+    "Verification is the first step towards making a difference." <span class="heart">💜</span>
+  </div>
+
+  <div class="otp-container">
+    <input type="text" maxlength="1" class="otp">
+    <input type="text" maxlength="1" class="otp">
+    <input type="text" maxlength="1" class="otp">
+    <input type="text" maxlength="1" class="otp">
+  </div>
+
+  <button class="verify-btn" onclick="verifyOtp()">Verify OTP</button>
+</div>
+
+<script>
+// Auto-focus to next box
+const otpInputs = document.querySelectorAll('.otp');
+otpInputs.forEach((input, idx) => {
+  input.addEventListener('input', ()=>{
+    if(input.value.length === 1 && idx < otpInputs.length-1){
+      otpInputs[idx+1].focus();
+    }
+  });
+});
+
+// OTP verification logic
+function verifyOtp(){
+  let otpValue = '';
+  otpInputs.forEach(input => otpValue += input.value);
+  if(otpValue.length === otpInputs.length){
+    window.location.href="hospitalmain.html";
+    // Redirect to next page or dashboard
+  } 
+}
+</script>
+
+</body>
+</html>

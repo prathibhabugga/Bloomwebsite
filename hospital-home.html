@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+
+body{
+  background: linear-gradient(135deg,#f3e6f8,#e8d6ff);
+  min-height:100vh;
+}
+
+/* Hero Banner */
+.banner {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: url('https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.banner-content {
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+.banner-content h1{
+  font-family:'Playfair Display', serif;
+  font-size: 36px;
+  font-weight:700;
+}
+
+.banner-content p{
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Categories Section */
+.categories{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 40px 20px;
+}
+
+.card{
+  flex: 1 1 200px;
+  max-width: 220px;
+  background: rgba(255,255,255,0.9);
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card:hover{
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.card img{
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.card h3{
+  font-size: 18px;
+  color: #7a4e9f;
+  margin-bottom: 8px;
+}
+
+.card p{
+  font-size: 13px;
+  color: #5a2d82;
+  line-height: 1.4;
+}
+
+/* Modal / Section Style */
+.modal {
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  overflow:auto;
+  z-index:1000;
+}
+
+.modal-content{
+  background: white;
+  border-radius:20px;
+  max-width:700px;
+  width:100%;
+  padding:30px;
+  max-height:90vh;
+  overflow-y:auto;
+  position: relative;
+}
+
+.close-btn{
+  position: absolute;
+  top:15px;
+  right:20px;
+  font-size:22px;
+  font-weight:700;
+  cursor:pointer;
+  color:#7a4e9f;
+}
+
+/* Table style */
+table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top:20px;
+}
+
+table th, table td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:left;
+}
+
+table th{
+  background:#a855f7;
+  color:white;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:25px 10px;
+  font-size:13px;
+  color:#7a4e9f;
+  background: rgba(255,255,255,0.3);
+  margin-top: 30px;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .categories{
+    flex-direction: column;
+    align-items:center;
+  }
+  .card{
+    max-width:90%;
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- Hero Banner -->
+  <section class="banner">
+    <div class="banner-content">
+      <h1>City Hospital Dashboard</h1>
+      <p>Manage appointments, alerts, patient files and pregnancy cases efficiently</p>
+    </div>
+  </section>
+
+  <!-- Categories / Cards -->
+  <section class="categories">
+    <div class="card" onclick="openModal('appointmentsModal')">
+      <img src="https://img.icons8.com/fluency/96/appointment-reminders.png" alt="Appointments">
+      <h3>Received Appointments</h3>
+      <p>View all upcoming patient appointments</p>
+    </div>
+
+    <div class="card" onclick="openModal('sosModal')">
+      <img src="https://img.icons8.com/fluency/96/alarm.png" alt="SOS Alerts">
+      <h3>SOS Alerts</h3>
+      <p>Receive emergency alerts from patients</p>
+    </div>
+
+    <div class="card" onclick="openModal('filesModal')">
+      <img src="https://img.icons8.com/fluency/96/document.png" alt="Files">
+      <h3>Received Files</h3>
+      <p>Access uploaded files from patients</p>
+    </div>
+
+    <div class="card" onclick="openModal('pregnancyModal')">
+      <img src="https://img.icons8.com/fluency/96/pregnant-woman.png" alt="Pregnancy">
+      <h3>Pregnancy Cases</h3>
+      <p>Monitor pregnancy progress of registered patients</p>
+    </div>
+
+    <div class="card" onclick="openModal('otherModal')">
+      <img src="https://img.icons8.com/fluency/96/hospital-2.png" alt="Others">
+      <h3>Other Management</h3>
+      <p>Additional hospital management tools</p>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="appointmentsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('appointmentsModal')">&times;</span>
+      <h2>Received Appointments</h2>
+      <table>
+        <tr><th>Patient Name</th><th>Appointment Date</th><th>Time</th><th>Doctor</th></tr>
+        <tr><td>Akhila</td><td>05-03-2026</td><td>10:30 AM</td><td>Dr. Sharma</td></tr>
+        <tr><td>Ravi</td><td>06-03-2026</td><td>02:00 PM</td><td>Dr. Mehta</td></tr>
+        <tr><td>Priya</td><td>07-03-2026</td><td>11:00 AM</td><td>Dr. Rao</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="sosModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('sosModal')">&times;</span>
+      <h2>SOS Alerts</h2>
+      <table>
+        <tr><th>Patient Name</th><th>Location</th><th>Time</th><th>Alert Type</th></tr>
+        <tr><td>Akhila</td><td>Chennai</td><td>10:15 AM</td><td>Emergency Labor</td></tr>
+        <tr><td>Ravi</td><td>Hyderabad</td><td>09:50 AM</td><td>Severe Pain</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="filesModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('filesModal')">&times;</span>
+      <h2>Received Files</h2>
+      <table>
+        <tr><th>Patient Name</th><th>File Type</th><th>Date</th></tr>
+        <tr><td>Akhila</td><td>Medical Report</td><td>05-03-2026</td></tr>
+        <tr><td>Priya</td><td>Prescription</td><td>06-03-2026</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="pregnancyModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('pregnancyModal')">&times;</span>
+      <h2>Pregnancy Cases</h2>
+      <table>
+        <tr><th>Patient Name</th><th>Month</th><th>Doctor</th></tr>
+        <tr><td>Akhila</td><td>1</td><td>Dr. Mehta</td></tr>
+        <tr><td>Priya</td><td>3</td><td>Dr. Sharma</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="otherModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('otherModal')">&times;</span>
+      <h2>Other Management</h2>
+      <table>
+        <tr><th>Task</th><th>Status</th></tr>
+        <tr><td>Inventory Check</td><td>Pending</td></tr>
+        <tr><td>Staff Scheduling</td><td>Completed</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 City Hospital. All rights reserved.
+  </footer>
+
+<script>
+function openModal(id){
+  document.getElementById(id).style.display='flex';
+}
+function closeModal(id){
+  document.getElementById(id).style.display='none';
+}
+</script>
+</body>
+</html>

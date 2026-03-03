@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregnancy Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #f3e6f8; /* same lavenderish background as Bloom page */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+        color: #5a2d82;
+    }
+
+    /* Quote animation */
+    .quote-container {
+        text-align: center;
+        margin-bottom: 50px;
+        font-weight: 600;
+        font-size: 1.8rem;
+        max-width: 400px;
+        line-height: 1.5;
+        animation: fadeInUp 2s ease-in-out;
+    }
+
+    .quote-container span {
+        display: inline-block;
+        animation: float 2s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Form styling */
+    .form-container {
+        background: rgba(255,255,255,0.9);
+        padding: 35px 30px;
+        border-radius: 25px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 320px;
+    }
+
+    input, select {
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #d3b3e0;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+        border-color: #8a4de8;
+        box-shadow: 0 0 8px rgba(138,77,232,0.2);
+    }
+
+    button {
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        background-color: #8a4de8;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #6a38b5;
+        transform: scale(1.03);
+    }
+</style>
+</head>
+<body>
+
+<!-- Quote with text animation -->
+<div class="quote-container">
+    <span>“A new life is blooming… cherish every precious moment 💜”</span>
+</div>
+
+<!-- Form -->
+<div class="form-container">
+    <input type="text" placeholder="Your Name" id="name">
+    <input type="date" placeholder="Date of Birth" id="dob">
+    <label for="trimester">Select Your Trimester/Month:</label>
+    <select id="trimester">
+        <option value="">--Select Month--</option>
+        <option value="1">1st Month</option>
+        <option value="2">2nd Month</option>
+        <option value="3">3rd Month</option>
+        <option value="4">4th Month</option>
+        <option value="5">5th Month</option>
+        <option value="6">6th Month</option>
+        <option value="7">7th Month</option>
+        <option value="8">8th Month</option>
+        <option value="9">9th Month</option>
+    </select>
+    <button onclick="submitPregnancy()">Submit</button>
+</div>
+
+<script>
+function submitPregnancy() {
+    const name = document.getElementById('name').value;
+    const dob = document.getElementById('dob').value;
+    const month = document.getElementById('trimester').value;
+
+    if (!name || !dob || !month) {
+        alert("Please fill all the details!");
+        return;
+    }
+
+    window.location.href = 'pregnant_home.html';
+}
+</script>
+
+</body>
+</html>

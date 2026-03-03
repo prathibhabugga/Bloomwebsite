@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom - Others Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+/* BODY & BACKGROUND */
+body{
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  background: linear-gradient(135deg,#ffe6f2,#f3e8ff,#ffd6ec);
+  position:relative;
+}
+
+/* FLOATING GLOWS */
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:-1;
+}
+.glow1{ width:350px; height:350px; background:#e6ccff; top:-100px; right:-100px; }
+.glow2{ width:300px; height:300px; background:#ffd6ec; bottom:-90px; left:-90px; }
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:260px;
+  height:100%;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(20px);
+  box-shadow:2px 0 30px rgba(122,78,159,0.3);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:30px 20px;
+  z-index:100;
+}
+
+.profile{text-align:center; margin-bottom:25px;}
+.profile img{ width:70px; height:70px; border-radius:50%; border:2px solid #a855f7; margin-bottom:10px;}
+.profile h3{ font-size:18px; color:#7a4e9f; }
+.profile p{ font-size:13px; color:#8c5fb3; }
+
+/* Sidebar menu items */
+.menu-items{ flex:1; }
+.menu-item{ margin:20px 0; font-size:16px; color:#8c5fb3; cursor:pointer; transition:0.3s; display:flex; align-items:center; gap:8px; }
+.menu-item:hover{ transform:translateX(8px); color:#6b2fa5; }
+
+.logout{text-align:center; font-size:16px; color:#e055f7; cursor:pointer; font-weight:500; margin-top:20px;}
+.logout:hover{ transform:scale(1.05); }
+
+/* HAMBURGER ICON */
+.hamburger{
+  position:absolute;
+  top:25px;
+  left:25px;
+  font-size:30px;
+  cursor:pointer;
+  color:#7a4e9f;
+  z-index:101;
+}
+
+/* MAIN CONTAINER */
+.main{
+  margin-left:280px;
+  width:calc(100% - 280px);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  overflow-y:auto;
+}
+
+/* QUOTE BOX */
+.quote-box{
+  background: rgba(255,255,255,0.7);
+  padding:25px 30px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(122,78,159,0.2);
+  max-width:600px;
+  margin-bottom:35px;
+  font-family:'Playfair Display', serif;
+  font-size:24px;
+  color:#7a4e9f;
+  position:relative;
+}
+
+/* MOOD SECTION */
+.mood-title{ font-size:18px; color:#7a4e9f; margin-bottom:25px; }
+.mood-container{ display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.mood{
+  width:60px; height:60px;
+  display:flex; justify-content:center; align-items:center;
+  border-radius:50%; font-size:28px;
+  cursor:pointer; transition:0.3s; background:rgba(255,255,255,0.8);
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+.mood:hover{ transform:scale(1.3) rotate(-5deg); }
+
+/* MOTIVATION BOX */
+.motivation-box{
+  margin-top:20px;
+  background: rgba(255,255,255,0.8);
+  padding:20px 25px;
+  border-radius:15px;
+  max-width:500px;
+  font-size:16px;
+  color:#6a2fb5;
+  box-shadow:0 6px 20px rgba(122,78,159,0.15);
+  transition:0.3s;
+  opacity:0;
+}
+
+/* DETAIL PANEL */
+#detailPanel{
+  position:fixed;
+  top:80px;
+  right:-400px;
+  width:350px;
+  max-height:80%;
+  background:rgba(255,255,255,0.95);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 6px 25px rgba(122,78,159,0.25);
+  transition:0.4s;
+  z-index:400;
+  overflow-y:auto;
+}
+#detailPanel img{width:100%; border-radius:15px; margin-bottom:10px;}
+#detailPanel button{float:right; background:#8a2be2; color:white; border:none; border-radius:8px; padding:5px 10px; cursor:pointer;}
+
+/* ITEMS GRID */
+.item-card{
+  display:flex; flex-direction:column; align-items:center;
+  gap:5px;
+  cursor:pointer;
+  width:120px;
+  padding:10px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.8);
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  margin:10px;
+  transition:0.3s;
+}
+.item-card img{width:100%; border-radius:10px;}
+.item-card:hover{transform:scale(1.05);}
+
+/* DIET & EXERCISE LISTS */
+#dietList, #exerciseList{
+  display:flex; flex-wrap:wrap; justify-content:center; margin-top:20px;
+}
+
+/* CALENDAR */
+.calendar{
+  margin-top:30px;
+  display:none;
+}
+.calendar input[type=date]{ padding:10px; border-radius:10px; border:1px solid #ccc; margin:5px; }
+
+/* TRACKING BOX */
+.tracker-box{
+  margin-top:30px;
+  display:none;
+  max-width:500px;
+  background:rgba(255,255,255,0.8);
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 6px 20px rgba(122,78,159,0.15);
+}
+
+/* TICK & CROSS */
+.tick{ color:green; font-weight:bold; margin-right:8px; }
+.cross{ color:red; font-weight:bold; margin-right:8px; }
+
+/* CHATBOT */
+#chatbot{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  width:250px;
+  height:350px;
+  background:rgba(255,255,255,0.95);
+  border-radius:15px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:500;
+}
+#chatbot-header{
+  background:#8a2be2;
+  color:white;
+  padding:10px;
+  text-align:center;
+  font-weight:bold;
+}
+#chatbot-body{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+}
+#chatbot-input{
+  display:flex;
+}
+#chatbot-input input{
+  flex:1;
+  padding:8px;
+  border:none;
+  outline:none;
+}
+#chatbot-input button{
+  background:#8a2be2;
+  color:white;
+  border:none;
+  padding:8px 10px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="profile" onclick="showProfile()">
+    <img src="https://i.pravatar.cc/100" alt="User Profile">
+    <h3>Jane Doe</h3>
+    <p>jane@example.com</p>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item" onclick="showCalendar()">📅 Calendar</div>
+    <div class="menu-item" onclick="showDiet()">🥗 Diet</div>
+    <div class="menu-item" onclick="showExercise()">🏋️ Exercise</div>
+    <div class="menu-item" onclick="showTracker()">📊 Tracker</div>
+  </div>
+  <div class="logout" onclick="alert('Logged Out')">Logout</div>
+</div>
+
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="quote-box" id="quoteBox">"Empowered women empower the world." 💜</div>
+  <div class="mood-title">Hey! How is your mood today?</div>
+  <div class="mood-container">
+    <div class="mood" onclick="showMotivation('😔')">😔</div>
+    <div class="mood" onclick="showMotivation('😢')">😢</div>
+    <div class="mood" onclick="showMotivation('😡')">😡</div>
+    <div class="mood" onclick="showMotivation('🥹')">🥹</div>
+    <div class="mood" onclick="showMotivation('😊')">😊</div>
+  </div>
+  <div class="motivation-box" id="motivationBox"></div>
+
+  <!-- Calendar -->
+  <div class="calendar" id="calendarSection">
+    <h3>Select your last period date:</h3>
+    <input type="date" id="lastPeriod" onchange="predictNextPeriod()">
+    <p id="predictionText"></p>
+  </div>
+
+  <!-- Diet & Exercise Lists -->
+  <div id="dietList"></div>
+  <div id="exerciseList"></div>
+
+  <!-- Tracker -->
+  <div class="tracker-box" id="trackerSection">
+    <h3>Diet & Exercise Tracking</h3>
+    <p><span class="tick">✔</span> Followed today's diet</p>
+    <p><span class="cross">✖</span> Did not exercise today</p>
+  </div>
+</div>
+
+<!-- Slide-out Detail Panel -->
+<div id="detailPanel">
+  <button onclick="closeDetail()">X</button>
+  <h3 id="detailTitle"></h3>
+  <img id="detailImage" src="">
+  <p id="detailDescription"></p>
+</div>
+
+<!-- Chatbot -->
+<div id="chatbot">
+  <div id="chatbot-header">Chat with Bloom</div>
+  <div id="chatbot-body"></div>
+  <div id="chatbot-input">
+    <input type="text" id="userMsg" placeholder="Type your message">
+    <button onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<script>
+// Sidebar toggle
+function toggleMenu(){ document.querySelector('.sidebar').classList.toggle('active'); }
+
+// Mood quotes
+function showMotivation(emoji){
+  const motivationBox = document.getElementById('motivationBox');
+  const quotes = {
+    "😔":"Every setback is a setup for a comeback.",
+    "😢":"Tears are proof that you are alive and healing.",
+    "😡":"Turn your anger into your power.",
+    "🥹":"Vulnerability is strength, not weakness.",
+    "😊":"Keep shining, your smile lights up the world."
+  };
+  motivationBox.innerText = quotes[emoji];
+  motivationBox.style.opacity = 1;
+}
+
+// Slide-out panel
+function showDetail(title,img,desc){
+  document.getElementById('detailTitle').innerText = title;
+  document.getElementById('detailImage').src = img;
+  document.getElementById('detailDescription').innerText = desc;
+  document.getElementById('detailPanel').style.right = '20px';
+}
+function closeDetail(){ document.getElementById('detailPanel').style.right='-400px'; }
+
+// Calendar
+function showCalendar(){
+  document.getElementById('calendarSection').style.display='block';
+  document.getElementById('dietList').style.display='none';
+  document.getElementById('exerciseList').style.display='none';
+  document.getElementById('trackerSection').style.display='none';
+}
+function predictNextPeriod(){
+  const last = document.getElementById('lastPeriod').value;
+  if(last){
+    const lastDate = new Date(last);
+    const nextDate = new Date(lastDate);
+    nextDate.setDate(lastDate.getDate()+28);
+    const options = {year:'numeric', month:'long', day:'numeric'};
+    document.getElementById('predictionText').innerText = `Your next period is predicted on: ${nextDate.toLocaleDateString(undefined, options)}`;
+  }
+}
+
+// Diet & Exercise
+const diets=[
+  {name:"PCOD Diet", img:"https://i.imgur.com/3uT8hRj.png", desc:"Fiber-rich foods, proteins, low sugar."},
+  {name:"Diabetic Diet", img:"https://i.imgur.com/YJf9Zy2.png", desc:"Low carb and sugar-controlled diet."},
+  {name:"Healthy Snacks", img:"https://i.imgur.com/BR7OX0q.png", desc:"Nuts, fruits, and other healthy snacks."}
+];
+const exercises=[
+  {name:"Yoga Stretch", img:"https://i.imgur.com/0VZ5k0G.png", desc:"Gentle yoga stretches."},
+  {name:"Cardio Routine", img:"https://i.imgur.com/X6R4PKb.png", desc:"Quick cardio exercises."},
+  {name:"Strength Training", img:"https://i.imgur.com/Y5c1R6Q.png", desc:"Bodyweight and resistance exercises."}
+];
+
+function showDiet(){
+  document.getElementById('dietList').style.display='flex';
+  document.getElementById('exerciseList').style.display='none';
+  document.getElementById('calendarSection').style.display='none';
+  document.getElementById('trackerSection').style.display='none';
+  displayDiets();
+}
+function showExercise(){
+  document.getElementById('dietList').style.display='none';
+  document.getElementById('exerciseList').style.display='flex';
+  document.getElementById('calendarSection').style.display='none';
+  document.getElementById('trackerSection').style.display='none';
+  displayExercises();
+}
+function displayDiets(){ 
+  const list=document.getElementById('dietList'); 
+  list.innerHTML=''; 
+  diets.forEach(d=>{
+    list.innerHTML+=`<div class="item-card" onclick="showDetail('${d.name}','${d.img}','${d.desc}')"><img src="${d.img}"><p>${d.name}</p></div>`;
+  });
+}
+function displayExercises(){ 
+  const list=document.getElementById('exerciseList'); 
+  list.innerHTML=''; 
+  exercises.forEach(e=>{
+    list.innerHTML+=`<div class="item-card" onclick="showDetail('${e.name}','${e.img}','${e.desc}')"><img src="${e.img}"><p>${e.name}</p></div>`;
+  });
+}
+
+// Tracker
+function showTracker(){
+  document.getElementById('trackerSection').style.display='block';
+  document.getElementById('calendarSection').style.display='none';
+  document.getElementById('dietList').style.display='none';
+  document.getElementById('exerciseList').style.display='none';
+}
+
+// Profile
+function showProfile(){
+  alert('Name: Jane Doe\nEmail: jane@example.com\nPhone: +91 9876543210\nAge: 28');
+}
+
+// Chatbot
+function sendChat(){
+  const input=document.getElementById('userMsg');
+  const msg=input.value.trim();
+  if(msg==='') return;
+  const body=document.getElementById('chatbot-body');
+  const botReplies={
+    "hi":"Hello! How can I help you today?",
+    "hello":"Hi there! Need diet or exercise advice?",
+    "diet":"You can check our PCOD, Diabetic, and Healthy Snacks diets.",
+    "exercise":"Try Yoga, Cardio, or Strength Training routines.",
+    "period":"Use the Calendar tab to track your periods."
+  };
+  const reply=botReplies[msg.toLowerCase()]||"I am here to assist you with health tips!";
+  body.innerHTML+=`<p><b>You:</b> ${msg}</p><p><b>Bloom:</b> ${reply}</p>`;
+  body.scrollTop=body.scrollHeight;
+  input.value='';
+}
+</script>
+</body>
+</html>
